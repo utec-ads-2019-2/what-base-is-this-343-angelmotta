@@ -9,7 +9,9 @@ void getMinBase(char* x, char &min_base){
 	for(t = x; *t != '\0'; ++t){
 		if(*t > max) max = *t;
 	}
+	//printf("end %c\n", max);
 	min_base = max + 1;
+	printf("min base: %c\n", min_base);
 }
 
 int getValueFromThisBase(char *x, char base_num){
@@ -18,8 +20,14 @@ int getValueFromThisBase(char *x, char base_num){
 	int len_num = (int)strlen(x);
 	int num_power = len_num - 1;
 	for(int i=0; i<len_num; ++i){
-		printf("num: %d * base: %d exponente: %d \n", *x - '0', base_num - '0', num_power);	//casting
-		value_num += (*x - '0') * pow(base_num - '0', num_power);
+		if(base_num >= 65){	// base is letter
+			printf("num: %d * base: %d exponente: %d \n", *x - '7', base_num - '7', num_power);	//casting
+			value_num += (*x - '7') * pow(base_num - '7', num_power);
+		}
+		else{
+			printf("num: %d * base: %d exponente: %d \n", *x - '0', base_num - '0', num_power);	//casting
+			value_num += (*x - '0') * pow(base_num - '0', num_power);
+		}
 		num_power--;
 		++x;
 	}
@@ -36,7 +44,7 @@ void getEqualValues(char *x, char min_base_x, char* y, char min_base_y){
 		value_y = getValueFromThisBase(y,min_base_y);
 		if(value_x == value_y){
 			printf("GOT IT %d - %d \n", value_x, value_y);
-			printf("%s (base %d) = %s (base %d)\n",x, min_base_x - '0', y, min_base_y - '0');
+			printf("%s (base %c) = %s (base %c)\n",x, min_base_x, y, min_base_y);	// que base es la letra ????
 			return;
 		}
 		else if(value_x > value_y){
